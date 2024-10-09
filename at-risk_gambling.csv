@@ -1,0 +1,11 @@
+﻿Product,Risk
+Sports => weekly,74%
+Sports < weekly,40%
+Racing => weekly,74.60%
+Racing < weekly,37.80%
+Poker Machines => weekly,83.10%
+Poker Machines < weekly,41.30%
+Casino Table Games => weekly,86.20%
+Casino Table Games < weekly,42.90%
+Lotteries/Scratchies => weekly,48.50%
+Lotteries/Scratchies < weekly,44.70%
