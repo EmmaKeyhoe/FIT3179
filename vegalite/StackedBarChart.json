@@ -1,0 +1,16 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/at-risk_gambling.csv"
+  },
+  "repeat": {"layer": [">=Weekly", "<Weekly"]},
+  "spec": {
+    "mark": "bar",
+    "encoding": {
+      "x": {"field": {"repeat": "layer"}, "type": "quantitative"},
+      "y": {"field": "Entity", "type": "nominal"},
+      "color": {"datum": {"repeat": "layer"}, "type": "nominal"}
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Gambling bad",
+  "data": {"url": "data/cars.json"},
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Horsepower", "type": "quantitative", "title": "Other"},
+    "y": {
+      "field": "Miles_per_Gallon",
+      "type": "quantitative",
+      "title": "Percentage"
+    },
+    "size": {"field": "Acceleration", "type": "quantitative", "title": "Legend"}
+  },
+  "config": {}
+}
