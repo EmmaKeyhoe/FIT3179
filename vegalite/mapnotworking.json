@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 500,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/cartdeco/Australia-json-data/refs/heads/master/aus25fgd_r.topojson",
+        "format": {"type": "topojson", "feature": "collection"}
+      },
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/refs/heads/main/gambling_profit_increases.csv"
+      },
+      "mark": {"type": "geoshape"},
+      "transform": [
+        {
+          "lookup": "State", 
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/refs/heads/main/gambling_profit_increases.csv"
+            },
+            "key": "State",
+            "fields": ["Increase"]
+          }
+        }
+      ],
+      "encoding": {
+        "color": {
+          "field": "Increase",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal"}, 
+          {"field": "Increase", "type": "quantitative"} 
+        ]
+      }
+    }
+  ]
+}

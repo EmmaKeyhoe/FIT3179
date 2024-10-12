@@ -3,13 +3,21 @@
   "data": {
     "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/at-risk_gambling.csv"
   },
-  "repeat": {"layer": [">=Weekly", "<Weekly"]},
+  "repeat": {"layer": ["=>Weekly", "<Weekly"]},
   "spec": {
     "mark": "bar",
     "encoding": {
-      "x": {"field": {"repeat": "layer"}, "type": "quantitative"},
-      "y": {"field": "Entity", "type": "nominal"},
-      "color": {"datum": {"repeat": "layer"}, "type": "nominal"}
+      "x": {
+        "field": {"repeat": "layer"},
+        "type": "quantitative",
+        "title": "Percentage %"
+      },
+      "y": {"field": "Product", "type": "nominal", "title": "Gambling Type"},
+      "color": {
+        "datum": {"repeat": "layer"},
+        "type": "nominal",
+        "title": "Frequency"
+      }
     }
   },
   "config": {}
