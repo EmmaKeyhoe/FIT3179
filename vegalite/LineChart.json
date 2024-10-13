@@ -1,0 +1,57 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/unemployment_rate.csv",
+      "format": {
+        "type": "csv"
+      }
+    },
+    "transform": [
+      {
+        "fold": ["Trend", "Seasonally_adjusted"],
+        "as": ["LineType", "Rate"]
+      }
+    ],
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "Month",
+        "type": "ordinal",
+        "axis": {"title": "Month"},
+        "sort": null
+      },
+      "y": {
+        "field": "Rate",
+        "type": "quantitative",
+        "axis": {
+          "title": "Unemployment Rate (%)"
+        }
+      },
+      "color": {
+        "field": "LineType",
+        "type": "nominal",
+        "scale": {
+          "domain": ["Trend", "Seasonally_adjusted"],
+          "range": ["purple", "orange"]
+        },
+        "legend": {
+          "title": "Unemployment Rates"
+        }
+      },
+      "tooltip": [
+        {"field": "Month", "type": "ordinal"},
+        {"field": "Rate", "type": "quantitative", "title": "Rate (%)"}
+      ]
+    },
+    "config": {
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 14
+      },
+      "legend": {
+        "labelFontSize": 12,
+        "titleFontSize": 14
+      }
+    }
+  }
+  

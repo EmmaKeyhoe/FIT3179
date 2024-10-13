@@ -11,39 +11,191 @@
       position: relative;
       left: 30px;
       border-radius: 25px;
+      overflow: hidden; 
+      background-color: white;
+      padding: 10px; 
+    }
+    .flex-container {
+      display: flex;
+      justify-content: center; 
+      margin-top: 20px; 
+    }
+    .flex-item {
+      margin: 0 10px; 
+      border-radius: 25px; 
+      overflow: hidden; 
+      background-color: white; 
+      padding: 10px; 
+    }
+    .text-block {
+      margin-left: 20px; 
+      padding: 10px; 
+      border-radius: 15px; 
+      background-color: #cdaccd; 
+      width: 300px; 
     }
 </style>
-<title>Who's Really Winning?</title>
-<h1>Who's Really Winning?</h1>
+<title >Who's Really Winning?</title>
+<h1 style="font-family: Arial">Who's Really Winning?</h1>
 <body style="background-color: #cdaccd;">
-  <div id="vis"/ class="relative" border-radius: 25px;>
-        <script>
-            const spec = {
-          "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-          "data": {
-            "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/at-risk_gambling.csv"
-          },
-          "repeat": {"layer": ["=>Weekly", "<Weekly"]},
-          "spec": {
-            "mark": "bar",
-            "encoding": {
-              "x": {
-                "field": {"repeat": "layer"},
-                "type": "quantitative",
-                "title": "Percentage %"
-              },
-              "y": {"field": "Product", "type": "nominal", "title": "Gambling Type"},
-              "color": {
-                "datum": {"repeat": "layer"},
-                "type": "nominal",
-                "title": "Frequency"
+  <div class="flex-container">
+    <div id="vis" class="flex-item relative">
+      <script>
+          const spec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "title": "Odds of being an 'at-risk' gambler based on gambling frequency and type",
+            "data": {
+              "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/at-risk_gambling.csv"
+            },
+            "repeat": {"layer": ["=>Weekly", "<Weekly"]},
+            "spec": {
+              "mark": "bar",
+              "encoding": {
+                "x": {
+                  "field": {"repeat": "layer"},
+                  "type": "quantitative",
+                  "title": "Percentage %"
+                },
+                "y": {"field": "Product", "type": "nominal", "title": "Gambling Type"},
+                "color": {
+                  "datum": {"repeat": "layer"},
+                  "type": "nominal",
+                  "title": "Frequency"
+                }
               }
-            }
-          },
-          "config": {}
-        };
-            vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
-          </script>
+            },
+            "config": {}
+          };
+          vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+      </script>
     </div>
+
+    <div class="text-block">
+      <h2 style="font-family: Arial">The House Always Wins</h2>
+      <p style="font-family: Arial">
+        <i>The odds are never in the players favour, casinos and betting agencies are businesses first and foremost. "The highest form of wisdom is to know when to play and when to stay away".</i>
+      </p>
+    </div>
+  </div>
+
+  <div class="flex-container">
+    <div id="vis2" class="flex-item relative">
+      <script>
+          const spec2 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Australia's Unemployment Rates from 2022-24",
+  "data": {
+    "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/unemployment_rate.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "fold": ["Trend", "Seasonally_adjusted"],
+      "as": ["LineType", "Rate"]
+    }
+  ],
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "ordinal",
+      "axis": {"title": "Month"},
+      "sort": null
+    },
+    "y": {
+      "field": "Rate",
+      "type": "quantitative",
+      "axis": {
+        "title": "Unemployment Rate (%)"
+      }
+    },
+    "color": {
+      "field": "LineType",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Trend", "Seasonally_adjusted"],
+        "range": ["purple", "orange"]
+      },
+      "legend": {
+        "title": "Legend"
+      }
+    },
+    "tooltip": [
+      {"field": "Month", "type": "ordinal"},
+      {"field": "Rate", "type": "quantitative", "title": "Rate (%)"}
+    ]
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 14
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 14
+    }
+  }
+}
+;
+          vegaEmbed("#vis2", spec2, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+      </script>
+    </div>
+
+    <div id="vis3" class="flex-item relative">
+      <script>
+          const spec3 = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "title": "Profit Margins for Gambling Companies",
+            "width": 300,
+            "height": 270,
+            "projection": {"type": "mercator"},
+            "layer": [
+              {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/Australia_Outline.topojson",
+                  "format": {"type": "topojson", "feature": "STE_2016_AUST"}
+                },
+                "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+              },
+              {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/gambling_profit_increases.csv"
+                },
+                "transform": [
+                  {
+                    "lookup": "STE_NAME16",
+                    "from": {
+                      "data": {
+                        "url": "https://raw.githubusercontent.com/EmmaKeyhoe/FIT3179/main/gambling_profit_increases.csv",
+                      },
+                      "key": "State",
+                      "fields": ["Increase"]
+                    }
+                  }
+                ],
+                "mark": {"type": "geoshape"},
+                "encoding": {
+                  "color": {
+                    "field": "Increase",
+                    "type": "quantitative",
+                    "scale": {
+                      "domain": [-10, 40],
+                      "range": ["#f7fbff", "#08306b"]
+                    }
+                  },
+                  "tooltip": [
+                    {"field": "State", "type": "nominal"},
+                    {"field": "Increase", "type": "quantitative"}
+                  ]
+                }
+              }
+            ]
+          };
+          vegaEmbed("#vis3", spec3, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+      </script>
+    </div>
+  </div>
 </body>
 </html>
